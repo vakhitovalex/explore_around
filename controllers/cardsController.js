@@ -8,9 +8,6 @@ function getCardsInfo(req, res) {
       res.status(404).send({ message: 'Card not found' });
       res.status(500).send({ message: 'Something went wrong' });
     });
-  // getFileContent(pathToData).then((cards) => {
-  //   res.send(cards);
-  // });
 }
 
 function createCard(req, res) {
@@ -35,12 +32,26 @@ function deleteCard(req, res) {
     });
 }
 
-module.exports.createCard = (req, res) => {
-  console.log(req.user._id); // _id will become accessible
-};
+function likeCard(req, res) {
+  return Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  );
+}
+
+function dislikeCard(req, res) {
+  return Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true },
+  );
+}
 
 module.exports = {
   getCardsInfo,
   createCard,
   deleteCard,
+  likeCard,
+  dislikeCard,
 };
