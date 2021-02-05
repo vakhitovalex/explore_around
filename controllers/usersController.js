@@ -1,6 +1,7 @@
 const path = require('path');
 const { getFileContent } = require('./contentController');
 const User = require('../models/user');
+const { send } = require('process');
 
 const pathToData = path.join(__dirname, '..', 'data', 'users.json');
 
@@ -35,8 +36,31 @@ function getOneUserInfo(req, res) {
   });
 }
 
+function updateUserProfile(req, res) {
+  console.log(req.user._id);
+  const { name, about } = req.body;
+  return User.findByIdAndUpdate(
+    req.user._id,
+    {
+      name: name,
+      about: about,
+    },
+    {
+      new: true,
+    },
+  )
+    .then((user) => res.send(user))
+    .catch((err) => {
+      res.status(400).send({ message: 'Error while updating user: ' + err });
+      res.status(500).send({ message: 'Something went wrong' });
+    });
+}
+
+// function updateUserAvatar(req, res) {}
+
 module.exports = {
   getUsersInfo,
   getOneUserInfo,
   createUser,
+  updateUserProfile,
 };
