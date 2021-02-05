@@ -37,7 +37,6 @@ function getOneUserInfo(req, res) {
 }
 
 function updateUserProfile(req, res) {
-  console.log(req.user._id);
   const { name, about } = req.body;
   return User.findByIdAndUpdate(
     req.user._id,
@@ -56,11 +55,30 @@ function updateUserProfile(req, res) {
     });
 }
 
-// function updateUserAvatar(req, res) {}
+function updateUserAvatar(req, res) {
+  console.log(req.user._id);
+  const { avatar } = req.body;
+  return User.findByIdAndUpdate(
+    req.user._id,
+    {
+      avatar: avatar,
+    },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+    .then((user) => res.send(user))
+    .catch((err) => {
+      res.status(400).send({ message: 'Error while updating user: ' + err });
+      res.status(500).send({ message: 'Something went wrong' });
+    });
+}
 
 module.exports = {
   getUsersInfo,
   getOneUserInfo,
   createUser,
   updateUserProfile,
+  updateUserAvatar,
 };
