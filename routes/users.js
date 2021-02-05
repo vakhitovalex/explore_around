@@ -11,7 +11,6 @@ const {
 
 router.get('/users', getUsersInfo);
 router.post('/users', createUser);
-
 router.get('/users/:id', getOneUserInfo);
 
 module.exports = router;

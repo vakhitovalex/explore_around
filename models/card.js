@@ -21,15 +21,18 @@ const cardSchema = new mongoose.Schema({
     },
   },
   owner: {
-    // link to the card author's model
-    type: ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     required: true,
   },
-  likes: {
-    // a list of users who liked the post,
-    type: ObjectId,
-    default: true,
-  },
+  likes: [
+    {
+      // a list of users who liked the post,
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      default: true,
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
