@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(avatar) {
-        const avatarRegex = /^(http|https):\/\/(www\.)?[0-9a-z._~:\/?#\[\]@!$&'\(\)*+,;=](#)?/i;
+        const avatarRegex = /^(http|https):\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/\/=]*)/i;
         return avatarRegex.test(avatar);
       },
       message: 'Sorry, your link is way too unique for us!',

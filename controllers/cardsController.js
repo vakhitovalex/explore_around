@@ -5,8 +5,8 @@ function getCardsInfo(req, res) {
     .populate('user')
     .then((cards) => res.send(cards))
     .catch((err) => {
-      res.status(404).send({ message: 'Card not found' });
-      res.status(500).send({ message: 'Something went wrong' });
+      res.status(404).send({ message: `Card not found. ${err}` });
+      res.status(500).send({ message: `Something went wrong. ${err}` });
     });
 }
 
@@ -18,17 +18,17 @@ function createCard(req, res) {
     .catch((err) => {
       res
         .status(400)
-        .send({ message: 'Error while creating new card: ' + err });
-      res.status(500).send({ message: 'Something went wrong' });
+        .send({ message: `Error while creating new card: ${err}` });
+      res.status(500).send({ message: `Something went wrong. ${err}` });
     });
 }
 
 function deleteCard(req, res) {
   return Card.findByIdAndRemove(req.params.id)
-    .then((card) => res.send({ message: card._id + ' was deleted' }))
+    .then((card) => res.send({ message: `${card._id} was deleted` }))
     .catch((err) => {
-      res.status(400).send({ message: 'Error while deleting a card: ' + err });
-      res.status(500).send({ message: 'Something went wrong' });
+      res.status(400).send({ message: `Error while deleting a card: ${err}` });
+      res.status(500).send({ message: `Something went wrong. ${err}` });
     });
 }
 

@@ -8,6 +8,8 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb',
     'airbnb-base',
+    'prettier',
+    'prettier/react',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -16,10 +18,8 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
   rules: {
-    allow: ['_id'],
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
   },
 };

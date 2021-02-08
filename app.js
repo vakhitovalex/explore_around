@@ -1,6 +1,4 @@
 const express = require('express');
-const https = require('https');
-const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
@@ -24,7 +22,6 @@ app.use((req, res, next) => {
   next();
 });
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', userRouter);
 app.use('/', cardsRouter);
 app.get('*', (req, res) => {

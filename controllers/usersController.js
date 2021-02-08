@@ -1,39 +1,46 @@
-const path = require('path');
-const { getFileContent } = require('./contentController');
 const User = require('../models/user');
-const { send } = require('process');
-
-const pathToData = path.join(__dirname, '..', 'data', 'users.json');
 
 function getUsersInfo(req, res) {
-  return User.find({}).then((users) => {
-    res.send(users).catch((err) => {
+  return User.find({})
+    .then((users) => {
+      if (users) {
+        res.send(users);
+        return;
+      }
       res.status(404).send({ message: 'User not found' });
-      res.status(500).send({ message: 'Something went wrong' });
-    });
-  });
+    })
+    .catch((err) =>
+      res.status(500).send({ message: `Something went wrong: ${err}` }),
+    );
 }
 
 function createUser(req, res) {
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar })
-    .then((user) => res.send(user))
-    .catch((err) => {
-      res
-        .status(400)
-        .send({ message: 'Error while creating new user: ' + err });
-      res.status(500).send({ message: 'Something went wrong' });
-    });
+    .then((user) => {
+      if (user) {
+        res.send(user);
+        return;
+      }
+      res.status(400).send({ message: 'Error while creating new user' });
+    })
+    .catch((err) =>
+      res.status(500).send({ message: `Something went wrong: ${err}` }),
+    );
 }
 
 function getOneUserInfo(req, res) {
-  return User.findById(req.params.id).then((user) => {
-    if (user) {
-      return res.status(200).send(user);
-    } else {
-      res.status(404).send({ message: 'User ID not found' });
-    }
-  });
+  return User.findById(req.params.id)
+    .then((user) => {
+      if (user) {
+        res.status(200).send(user);
+        return;
+      }
+      res.status(404).send({ message: 'User not found' });
+    })
+    .catch((err) =>
+      res.status(500).send({ message: `Something went wrong: ${err}` }),
+    );
 }
 
 function updateUserProfile(req, res) {
@@ -41,38 +48,47 @@ function updateUserProfile(req, res) {
   return User.findByIdAndUpdate(
     req.user._id,
     {
-      name: name,
-      about: about,
+      name,
+      about,
     },
     {
       new: true,
     },
   )
-    .then((user) => res.send(user))
-    .catch((err) => {
-      res.status(400).send({ message: 'Error while updating user: ' + err });
-      res.status(500).send({ message: 'Something went wrong' });
-    });
+    .then((user) => {
+      if (user) {
+        res.status(200).send(user);
+        return;
+      }
+      res.status(400).send({ message: 'Error while updating user' });
+    })
+    .catch((err) =>
+      res.status(500).send({ message: `Something went wrong: ${err}` }),
+    );
 }
 
 function updateUserAvatar(req, res) {
-  console.log(req.user._id);
   const { avatar } = req.body;
   return User.findByIdAndUpdate(
     req.user._id,
     {
-      avatar: avatar,
+      avatar,
     },
     {
       new: true,
       runValidators: true,
     },
   )
-    .then((user) => res.send(user))
-    .catch((err) => {
-      res.status(400).send({ message: 'Error while updating user: ' + err });
-      res.status(500).send({ message: 'Something went wrong' });
-    });
+    .then((user) => {
+      if (user) {
+        res.status(200).send(user);
+        return;
+      }
+      res.status(400).send({ message: 'Error while updating user' });
+    })
+    .catch((err) =>
+      res.status(500).send({ message: `Something went wrong: ${err}` }),
+    );
 }
 
 module.exports = {
