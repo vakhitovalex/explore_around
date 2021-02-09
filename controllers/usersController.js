@@ -58,8 +58,6 @@ function updateUserProfile(req, res) {
     },
     {
       new: true,
-    },
-    {
       runValidators: true,
     },
   )
