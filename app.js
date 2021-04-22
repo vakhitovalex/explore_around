@@ -16,14 +16,6 @@ mongoose.connect('mongodb://localhost:27017/aroundb', {
 const userRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: '601a35fec8121f0cdcb75316', // paste the _id of the test user created in the previous step
-//   };
-
-//   next();
-// });
-
 app.use(bodyParser.json());
 app.post('/signin', login);
 app.post('/signup', createUser);
@@ -33,6 +25,15 @@ app.use('/', auth, cardsRouter);
 
 app.get('*', (req, res) => {
   res.send({ message: 'Requested resource not found' });
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+  res.status(statusCode).send({
+    // check the status and display a message based on it
+    message: statusCode === 500 ? 'An error occurred on the server' : message,
+  });
+  next();
 });
 
 app.listen(PORT, () => {

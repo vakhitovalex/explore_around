@@ -1,18 +1,16 @@
 const Card = require('../models/card');
+const NotFoundError = require('../middleware/errors/not-found-err');
 
 function getAllCards(req, res) {
   return Card.find({})
     .populate('user')
     .then((cards) => {
-      if (cards) {
-        res.send(cards);
-        return;
+      if (!cards) {
+        throw new NotFoundError('Cards were not found :(');
       }
-      res.status(404).send({ message: 'Cards not found' });
+      res.send(cards);
     })
-    .catch((err) =>
-      res.status(500).send({ message: `Something went wrong: ${err}` }),
-    );
+    .catch(next);
 }
 
 function createCard(req, res) {
