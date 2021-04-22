@@ -1,5 +1,6 @@
 const Card = require('../models/card');
 const NotFoundError = require('../middleware/errors/not-found-err');
+const BadRequestError = require('../middleware/errors/bad-request-err');
 
 function getAllCards(req, res) {
   return Card.find({})
@@ -16,29 +17,26 @@ function getAllCards(req, res) {
 function createCard(req, res) {
   const { name, link } = req.body;
   return Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.send(card))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: `${err}` });
+    .then((card) => {
+      if (!card) {
+        throw new BadRequestError(
+          'Please put correct name and link for the card',
+        );
       }
-      return res.status(500).send({ message: `Something went wrong: ${err}` });
-    });
+      res.send(card);
+    })
+    .catch(next);
 }
 
 function deleteCard(req, res) {
   return Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
-      if (card) {
-        return res.status(200).send({ message: `${card._id} was deleted` });
+      if (!card) {
+        throw new NotFoundError('Card was not found :(');
       }
-      return res.status(404).send({ message: 'Card not found' });
+      return res.status(200).send({ message: `${card._id} was deleted` });
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({ message: 'Invalid data input' });
-      }
-      return res.status(500).send({ message: `Something went wrong: ${err}` });
-    });
+    .catch(next);
 }
 
 function likeCard(req, res) {
@@ -48,15 +46,12 @@ function likeCard(req, res) {
     { new: true },
   )
     .then((card) => {
-      if (card) {
-        res.send({ message: `${card._id} was liked` });
-        return;
+      if (!card) {
+        throw new NotFoundError('Card was not found :(');
       }
-      res.status(404).send({ message: `Card was not found` });
+      res.send({ message: `${card._id} was liked` });
     })
-    .catch((err) =>
-      res.status(500).send({ message: `Something went wrong. ${err}` }),
-    );
+    .catch(next);
 }
 
 function dislikeCard(req, res) {
@@ -66,15 +61,12 @@ function dislikeCard(req, res) {
     { new: true },
   )
     .then((card) => {
-      if (card) {
-        res.send({ message: `${card._id} was unliked` });
-        return;
+      if (!card) {
+        throw new NotFoundError('Card was not found :(');
       }
-      res.status(404).send({ message: `Card was not found` });
+      res.send({ message: `${card._id} was unliked` });
     })
-    .catch((err) =>
-      res.status(500).send({ message: `Something went wrong. ${err}` }),
-    );
+    .catch(next);
 }
 
 module.exports = {
