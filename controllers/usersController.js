@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 function getUsersInfo(req, res) {
@@ -42,7 +43,7 @@ function createUser(req, res) {
 }
 
 function getOneUserInfo(req, res) {
-  return User.findById(req.params.id)
+  return User.findById(req.user._id)
     .then((user) => {
       if (user) {
         res.status(200).send(user);
@@ -112,10 +113,44 @@ function updateUserAvatar(req, res) {
     );
 }
 
+function login(req, res) {
+  const { email, password } = req.body;
+
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, 'alex-key', {
+        expiresIn: '7d',
+      });
+      res.send({ token });
+    })
+    .catch((err) => {
+      // authentication error
+      res.status(401).send({ message: err.message });
+    });
+  // User.findOne({ email })
+  //   .then((user) => {
+  //     if (!user) {
+  //       return Promise.reject(new Error('Incorrect password or email'));
+  //     }
+  //     return bcrypt.compare(password, user.password);
+  //   })
+  //   .then((passwordMatched) => {
+  //     if (!passwordMatched) {
+  //       return Promise.reject(new Error('Incorrect password or email'));
+  //     }
+  //     res.send({message: 'Everything is ok'})
+  //   })
+  //   .catch((err) => {
+  //     // return an authentication error
+  //     res.status(401).send({ message: err.message });
+  //   });
+}
+
 module.exports = {
   getUsersInfo,
   getOneUserInfo,
   createUser,
   updateUserProfile,
   updateUserAvatar,
+  login,
 };
