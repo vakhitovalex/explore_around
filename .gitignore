@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+/frontend/build
 
 # misc
 .DS_Store
@@ -38,3 +38,4 @@ node_modules
 .DS_Store
 .idea
 .vscode 
+.prettierrc.json
