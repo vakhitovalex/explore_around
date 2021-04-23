@@ -20,6 +20,11 @@ const cardsRouter = require('./routes/cards');
 
 app.use(requestLogger);
 app.use(bodyParser.json());
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Server will crash now');
+  }, 0);
+});
 app.post(
   '/signin',
   celebrate({
