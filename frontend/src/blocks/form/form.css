@@ -1,0 +1,13 @@
+@import url(./__input/form__input.css);
+@import url(./__submit/form__submit.css);
+@import url(./__error/form__error.css);
+@import url(./__error/_active/form__error_active.css);
+@import url(./__submit/_inactive/form__submit_inactive.css);
+/* @import url(./__name/form__name.css);
+@import url(./__about/form__about.css); */
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 36px;
+}

@@ -1,0 +1,13 @@
+.page__container {
+  max-width: 882px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media screen and (max-width: 925px) {
+  .page__container {
+    max-width: 88vw;
+  }
+}

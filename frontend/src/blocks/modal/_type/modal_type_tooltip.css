@@ -1,0 +1,15 @@
+.modal__type_tooltip {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  max-width: 430px;
+  /* max-width: 430px; */
+  /* min-height: 370px; */
+  border-radius: 15px;
+}
+@media screen and (max-width: 656px) {
+  .modal__type_tooltip {
+    min-width: 200px;
+    width: 75vw;
+  }
+}

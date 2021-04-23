@@ -1,0 +1,12 @@
+@import url(./__image/element__image.css);
+@import url(./__description/element__description.css);
+@import url(./__name/element__name.css);
+@import url(./__like/element__like.css);
+@import url(./__like/element__like-figure.css);
+@import url(./__like/element__like-count.css);
+@import url(./__delete/element__delete.css);
+
+.element {
+  margin-bottom: 20px;
+  position: relative;
+}

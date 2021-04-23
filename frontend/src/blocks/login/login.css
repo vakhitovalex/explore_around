@@ -1,0 +1,20 @@
+@import url('./__header/login__header.css');
+@import url('./__form/login__form.css');
+@import url('./__email/login__email.css');
+@import url('./__password/login__password.css');
+@import url('./__button/login__button.css');
+@import url('./__button-container/login__button-container.css');
+@import url('./__signup/login__signup.css');
+@import url('./__link/login__link.css');
+
+.login {
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+  max-width: 430px;
+  align-self: center;
+
+  /* visibility: hidden; */
+  /* opacity: 0; */
+  /* transition: 0.5s linear; */
+}

@@ -1,0 +1,18 @@
+@import url(./_inactive/form__submit_inactive.css);
+
+.form__submit {
+  margin-bottom: 36px;
+  margin-top: 18px;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: white;
+  background-color: black;
+  padding: 15px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form__submit:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}

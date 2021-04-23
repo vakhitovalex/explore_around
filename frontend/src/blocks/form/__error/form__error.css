@@ -1,0 +1,5 @@
+@import url(./_active/form__error_active.css);
+
+.form__error {
+  padding-top: 5px;
+}

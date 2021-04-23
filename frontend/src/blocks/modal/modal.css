@@ -1,0 +1,24 @@
+@import url(./__container/modal__container.css);
+@import url(./__title/modal__title.css);
+@import url(./__close-button/modal__close-button.css);
+@import url(./__image-container/modal__image-container.css);
+@import url(./__img/modal__img.css);
+@import url(./__img/modal__img-status.css);
+@import url(./__imgname/modal__imgname.css);
+@import url(./_type/modal_type_tooltip.css);
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s linear;
+}

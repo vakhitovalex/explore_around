@@ -1,0 +1,21 @@
+.profile__add {
+  height: 22px;
+  width: 22px;
+  padding: 25px 75px;
+  background: url(../../../images/plus.png) no-repeat center;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+}
+
+.profile__add:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 656px) {
+  .profile__add {
+    height: 16px;
+    width: 16px;
+    align-self: center;
+    padding: 21px 140px;
+  }
+}

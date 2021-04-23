@@ -1,0 +1,17 @@
+.element__delete {
+  background: url(../../../images/trash.svg) center no-repeat;
+  padding: 18px;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  /* for smooth transition on hover off */
+  transition: ease 0.5s;
+  position: absolute;
+  right: 16px;
+  top: 18px;
+}
+
+.element__delete:hover {
+  opacity: 0.5;
+  transition: ease 0.5s;
+}

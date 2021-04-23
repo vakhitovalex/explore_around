@@ -1,17 +1,11 @@
-# Around the U.S. Front End + Back End
+![Around the U. S.](./frontend/src/logo.svg)
 
-## Directories
+## Around the U.S. project on React, featuring authorization and registration on Node.js
 
-`/public` — static files from the build of the React front-end app.
+# Front end is here
 
-`/data` — JSON files to temporarily emulate database integration.
+https://www.alex-around-us.students.nomoreparties.site/
 
-`/routes` — routing files.
+# Back end is here
 
-All other directories are optional and may be created by the developer if necessary. 
-
-## Running the Project
-
-`npm run start` — to launch the server.
-
-`npm run dev` — to launch the server with the hot reload feature.
+https://www.api.alex-around-us.students.nomoreparties.site/

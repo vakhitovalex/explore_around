@@ -1,0 +1,16 @@
+.modal__image-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 820px;
+  max-height: 540px;
+  height: 75%;
+
+  /* max-height: 50vh; */
+}
+@media screen and (max-width: 925px) {
+  .modal__image-container {
+    min-width: 240px;
+    width: 75vw;
+    /* min-height: 299px; */
+  }
+}

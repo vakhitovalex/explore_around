@@ -1,0 +1,5 @@
+.header__status {
+  display: flex;
+  justify-content: space-between;
+  margin: 51px 0 32px;
+}

@@ -1,0 +1,8 @@
+.element__image {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  width: 282px;
+  height: 282px;
+  background: no-repeat center;
+  background-size: cover;
+}

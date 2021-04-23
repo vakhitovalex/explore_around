@@ -1,0 +1,15 @@
+@import url(./__image/header__image.css);
+@import url(./__status/header__status.css);
+@import url(./__link/header__link.css);
+
+.header {
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 350px) {
+  .header {
+    margin: 0 -20px;
+  }
+}

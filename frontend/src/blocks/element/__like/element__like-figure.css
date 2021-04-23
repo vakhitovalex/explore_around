@@ -1,0 +1,14 @@
+.element__like-figure {
+  background: url(../../../images/like.svg) center no-repeat;
+  padding: 11px;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  /* for smooth transition on hover off */
+  transition: ease 0.5s;
+}
+
+.element__like:hover {
+  opacity: 0.5;
+  transition: ease 0.5s;
+}
