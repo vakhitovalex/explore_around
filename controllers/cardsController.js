@@ -2,7 +2,7 @@ const Card = require('../models/card');
 const NotFoundError = require('../middleware/errors/not-found-err');
 const BadRequestError = require('../middleware/errors/bad-request-err');
 
-function getAllCards(req, res) {
+function getAllCards(req, res, next) {
   return Card.find({})
     .populate('user')
     .then((cards) => {
@@ -14,7 +14,7 @@ function getAllCards(req, res) {
     .catch(next);
 }
 
-function createCard(req, res) {
+function createCard(req, res, next) {
   const { name, link } = req.body;
   return Card.create({ name, link, owner: req.user._id })
     .then((card) => {
@@ -28,7 +28,7 @@ function createCard(req, res) {
     .catch(next);
 }
 
-function deleteCard(req, res) {
+function deleteCard(req, res, next) {
   return Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
@@ -39,7 +39,7 @@ function deleteCard(req, res) {
     .catch(next);
 }
 
-function likeCard(req, res) {
+function likeCard(req, res, next) {
   return Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
@@ -54,7 +54,7 @@ function likeCard(req, res) {
     .catch(next);
 }
 
-function dislikeCard(req, res) {
+function dislikeCard(req, res, next) {
   return Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },

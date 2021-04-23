@@ -1,4 +1,3 @@
-//test2
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -6,7 +5,7 @@ const NotFoundError = require('../middleware/errors/not-found-err');
 const BadRequestError = require('../middleware/errors/bad-request-err');
 const UnauthorizedError = require('../middleware/errors/unauthorized-err');
 
-function getUsersInfo(req, res) {
+function getUsersInfo(req, res, next) {
   return User.find({})
     .then((users) => {
       if (!users) {
@@ -17,29 +16,33 @@ function getUsersInfo(req, res) {
     .catch(next);
 }
 
-function createUser(req, res) {
+function createUser(req, res, next) {
   // const { name, about, avatar, email, password } = req.body;
-  bcrypt
-    .hash(req.body.password, 10)
-    .then((hash) =>
-      User.create({
-        name: req.body.name,
-        about: req.body.about,
-        avatar: req.body.avatar,
-        email: req.body.email,
-        password: hash,
-      }),
-    )
-    .then((user) => {
-      if (!user) {
-        throw new BadRequestError('Please put correct email or password');
-      }
-      res.status(201).send(user);
+  bcrypt.hash(req.body.password, 10).then((hash) =>
+    User.create({
+      name: req.body.name,
+      about: req.body.about,
+      avatar: req.body.avatar,
+      email: req.body.email,
+      password: hash,
     })
-    .catch(next);
+      .then((user) => {
+        if (!user) {
+          throw new BadRequestError('Please put correct email or password');
+        }
+        res.status(201).send({
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+          _id: user._id,
+          email: user.email,
+        });
+      })
+      .catch(next),
+  );
 }
 
-function getOneUserInfo(req, res) {
+function getOneUserInfo(req, res, next) {
   return User.findById(req.user._id)
     .then((user) => {
       if (!user) {
@@ -55,7 +58,7 @@ function getOneUserInfo(req, res) {
     .catch(next);
 }
 
-function updateUserProfile(req, res) {
+function updateUserProfile(req, res, next) {
   const { name, about } = req.body;
   return User.findByIdAndUpdate(
     req.user._id,
@@ -82,7 +85,7 @@ function updateUserProfile(req, res) {
     .catch(next);
 }
 
-function updateUserAvatar(req, res) {
+function updateUserAvatar(req, res, next) {
   const { avatar } = req.body;
   return User.findByIdAndUpdate(
     req.user._id,
