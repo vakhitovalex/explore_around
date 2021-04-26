@@ -1,15 +1,14 @@
-import React, { useContext } from 'react'
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
+import React, { useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function Card(props) {
-  const { owner, name, link, likes } = props.card
-
-  const currentUser = useContext(CurrentUserContext)
-  const isLiked = likes.some((item) => item._id === currentUser._id)
+  const currentUser = useContext(CurrentUserContext);
+  const { owner, name, link, likes } = props.card;
+  const isLiked = likes.some((item) => item === currentUser._id);
 
   return (
     <div className="element">
-      {owner._id === currentUser._id && (
+      {owner === currentUser._id && (
         <button
           type="submit"
           className="element__delete"
@@ -27,7 +26,7 @@ function Card(props) {
         <div className="element__like">
           <button
             className={
-              isLiked ? 'element__like-figure_active' : 'element__like-figure'
+              isLiked ? `element__like-figure_active` : `element__like-figure`
             }
             onClick={() => props.onCardLike(props.card)}
           ></button>
@@ -35,7 +34,7 @@ function Card(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;

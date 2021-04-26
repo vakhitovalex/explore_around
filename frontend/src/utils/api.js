@@ -25,14 +25,14 @@ export default class Api {
   //DELETE https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
   changeLikeStatus(cardId, isLiked) {
     if (isLiked) {
-      return fetch(this._baseUrl + '/cards/likes/' + cardId, {
+      return fetch(this._baseUrl + '/cards/' + cardId + '/likes', {
         headers: this._headers,
         method: 'PUT',
       }).then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       );
     } else {
-      return fetch(this._baseUrl + '/cards/likes/' + cardId, {
+      return fetch(this._baseUrl + '/cards/' + cardId + '/likes', {
         headers: this._headers,
         method: 'DELETE',
       }).then((res) =>
