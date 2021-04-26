@@ -21,7 +21,7 @@ function Login(props) {
       return;
     }
     props.handleLogin(password, email);
-    if (localStorage.getItem('jwt')) {
+    if (localStorage.getItem('token')) {
       history.push('/');
     }
   }

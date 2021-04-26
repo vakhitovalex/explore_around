@@ -36,7 +36,7 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [token, setToken] = React.useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
   const history = useHistory();
 
@@ -74,10 +74,10 @@ function App() {
           throw new Error('User Not Found');
         }
         if (data.token) {
-          localStorage.setItem('token', data.token);
           setEmail('');
           setPassword('');
           setIsLoggedIn(true);
+          setToken(localStorage.setItem('token', data.token));
         }
       })
       .catch((err) => console.log(err));
@@ -99,11 +99,12 @@ function App() {
             console.log(res);
             setIsLoggedIn(true);
             setEmail(res.email);
+            setCurrentUser(res);
           }
         })
         .catch((err) => console.log(err));
     }
-  }, [isLoggedIn]);
+  }, []);
 
   function requestUserInfo() {
     api
