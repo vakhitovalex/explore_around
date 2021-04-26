@@ -4,6 +4,7 @@ const User = require('../models/user');
 const NotFoundError = require('../middleware/errors/not-found-err');
 const BadRequestError = require('../middleware/errors/bad-request-err');
 const UnauthorizedError = require('../middleware/errors/unauthorized-err');
+const ConflictError = require('../middleware/errors/conflict-err');
 
 function getUsersInfo(req, res, next) {
   return User.find({})
@@ -18,28 +19,35 @@ function getUsersInfo(req, res, next) {
 
 function createUser(req, res, next) {
   // const { name, about, avatar, email, password } = req.body;
-  bcrypt.hash(req.body.password, 10).then((hash) =>
-    User.create({
-      name: req.body.name,
-      about: req.body.about,
-      avatar: req.body.avatar,
-      email: req.body.email,
-      password: hash,
-    })
-      .then((user) => {
-        if (!user) {
-          throw new BadRequestError('Please put correct email or password');
-        }
-        res.status(201).send({
-          name: user.name,
-          about: user.about,
-          avatar: user.avatar,
-          _id: user._id,
-          email: user.email,
-        });
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) =>
+      User.create({
+        name: req.body.name,
+        about: req.body.about,
+        avatar: req.body.avatar,
+        email: req.body.email,
+        password: hash,
       })
-      .catch(next),
-  );
+        .then((user) => {
+          if (!user) {
+            throw new BadRequestError('Please put correct email or password');
+          }
+          res.status(201).send({
+            name: user.name,
+            about: user.about,
+            avatar: user.avatar,
+            _id: user._id,
+            email: user.email,
+          });
+        })
+        .catch((err) => {
+          if (err.status.code === '409') {
+            throw new ConflictError('Please create unique user');
+          }
+        }),
+    )
+    .catch(next);
 }
 
 function getOneUserInfo(req, res, next) {
