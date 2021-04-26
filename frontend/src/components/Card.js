@@ -2,13 +2,14 @@ import React, { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function Card(props) {
-  const currentUser = useContext(CurrentUserContext);
   const { owner, name, link, likes } = props.card;
+
+  const currentUser = useContext(CurrentUserContext);
   const isLiked = likes.some((item) => item === currentUser._id);
 
   return (
     <div className="element">
-      {owner === currentUser._id && (
+      {owner._id === currentUser._id && (
         <button
           type="submit"
           className="element__delete"
@@ -26,7 +27,7 @@ function Card(props) {
         <div className="element__like">
           <button
             className={
-              isLiked ? `element__like-figure_active` : `element__like-figure`
+              isLiked ? 'element__like-figure_active' : 'element__like-figure'
             }
             onClick={() => props.onCardLike(props.card)}
           ></button>
