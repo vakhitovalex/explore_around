@@ -96,9 +96,9 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if (res) {
-            // console.log(res);
+            console.log(res);
             setIsLoggedIn(true);
-            setEmail(res.data.email);
+            setEmail(res.email);
           }
         })
         .catch((err) => console.log(err));
@@ -109,6 +109,7 @@ function App() {
     api
       .getUserInfo()
       .then((res) => {
+        console.log(res);
         setCurrentUser(res);
       })
       .catch((err) => {
