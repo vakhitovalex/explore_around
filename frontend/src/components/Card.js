@@ -9,7 +9,7 @@ function Card(props) {
 
   return (
     <div className="element">
-      {owner._id === currentUser._id && (
+      {owner === currentUser._id && (
         <button
           type="submit"
           className="element__delete"
