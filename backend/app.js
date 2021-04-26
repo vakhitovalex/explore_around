@@ -49,7 +49,7 @@ app.post(
 );
 
 app.use('/', auth, userRouter);
-app.use('/', auth, cardsRouter);
+app.use('/cards', auth, cardsRouter);
 
 app.get('*', (req, res) => {
   res.send({ message: 'Requested resource not found' });
