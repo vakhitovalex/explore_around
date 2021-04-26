@@ -49,7 +49,8 @@ function likeCard(req, res, next) {
       if (!card) {
         throw new NotFoundError('Card was not found :(');
       }
-      res.send({ message: `${card._id} was liked` });
+      // res.send({ message: `${card._id} was liked` });
+      res.status(200).send(card);
     })
     .catch(next);
 }
@@ -64,7 +65,7 @@ function dislikeCard(req, res, next) {
       if (!card) {
         throw new NotFoundError('Card was not found :(');
       }
-      res.send({ message: `${card._id} was unliked` });
+      res.status(200).send(card);
     })
     .catch(next);
 }
