@@ -23,7 +23,7 @@ function createCard(req, res, next) {
           'Please put correct name and link for the card',
         );
       }
-      res.send(card);
+      res.status(201).send(card);
     })
     .catch(next);
 }

@@ -91,13 +91,3 @@ export default class Api {
     );
   }
 }
-
-// const api = new Api({
-//   baseUrl: 'https://www.api.alex-around-us.students.nomoreparties.site',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     authorization: `Bearer ${token}`,
-//   },
-// });
-
-// export default api;
