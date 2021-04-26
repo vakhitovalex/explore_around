@@ -64,7 +64,7 @@ function App() {
           throw new Error('User Not Found');
         }
         if (data.token) {
-          localStorage.setItem('jwt', data.token);
+          localStorage.setItem('token', data.token);
           setEmail('');
           setPassword('');
           setIsLoggedIn(true);
@@ -75,15 +75,15 @@ function App() {
 
   function handleLogout() {
     setIsLoggedIn(false);
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('token');
     setEmail('');
   }
 
   useEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
       auth
-        .checkToken(jwt)
+        .checkToken(token)
         .then((res) => {
           if (res) {
             // console.log(res);
