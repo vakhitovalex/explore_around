@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/usersController');
@@ -19,6 +20,7 @@ const userRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 
 app.use(requestLogger);
+app.use(cors());
 app.use(bodyParser.json());
 app.get('/crash-test', () => {
   setTimeout(() => {

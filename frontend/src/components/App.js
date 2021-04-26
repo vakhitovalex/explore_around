@@ -14,7 +14,7 @@ import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 
-import api from '../utils/api';
+import Api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import AddPlacePopup from './AddPlacePopup';
 import Register from './Register';
@@ -36,8 +36,18 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [token, setToken] = React.useState(localStorage.getItem('token'));
 
   const history = useHistory();
+
+  const api = new Api({
+    baseUrl: 'https://www.api.alex-around-us.students.nomoreparties.site',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:3000',
+      authorization: `Bearer ${token}`,
+    },
+  });
 
   function handleRegister(password, email) {
     auth
