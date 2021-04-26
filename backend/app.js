@@ -6,6 +6,7 @@ const { celebrate, Joi, errors } = require('celebrate');
 const { createUser, login } = require('./controllers/usersController');
 const auth = require('./middleware/auth');
 const { requestLogger, errorLogger } = require('./middleware/logger');
+const NotFoundError = require('./middleware/errors/not-found-err');
 
 const app = express();
 const { PORT = 3001 } = process.env;
@@ -51,8 +52,8 @@ app.post(
 app.use('/', auth, userRouter);
 app.use('/cards', auth, cardsRouter);
 
-app.get('*', (req, res) => {
-  res.send({ message: 'Requested resource not found' });
+app.get('*', () => {
+  throw new NotFoundError(`This page doesn't exist`);
 });
 
 app.use(errorLogger);

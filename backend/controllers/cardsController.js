@@ -1,6 +1,7 @@
 const Card = require('../models/card');
 const NotFoundError = require('../middleware/errors/not-found-err');
 const BadRequestError = require('../middleware/errors/bad-request-err');
+const ForbiddenError = require('../middleware/errors/forbidden-err');
 
 function getAllCards(req, res, next) {
   return Card.find({})
@@ -33,8 +34,10 @@ function deleteCard(req, res, next) {
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Card was not found :(');
+      } else if (!card.owner._id === req.user._id) {
+        throw new ForbiddenError('Forbidden action, this card is not yours');
       }
-      return res.status(200).send({ message: `${card._id} was deleted` });
+      return res.status(200).send(card);
     })
     .catch(next);
 }
@@ -49,7 +52,6 @@ function likeCard(req, res, next) {
       if (!card) {
         throw new NotFoundError('Card was not found :(');
       }
-      // res.send({ message: `${card._id} was liked` });
       res.status(200).send(card);
     })
     .catch(next);
