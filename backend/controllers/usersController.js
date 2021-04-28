@@ -41,7 +41,7 @@ function createUser(req, res, next) {
           });
         })
         .catch((err) => {
-          if (err.code === '11000') {
+          if (err.code.toString() === '11000') {
             throw new ConflictError('Please create a unique user');
           }
         }),
