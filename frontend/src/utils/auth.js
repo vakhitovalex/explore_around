@@ -1,4 +1,5 @@
 const BASE_URL = 'https://www.api.alex-around-us.students.nomoreparties.site';
+const BASE_URL = 'http://localhost:3001';
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {

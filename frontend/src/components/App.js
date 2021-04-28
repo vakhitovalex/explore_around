@@ -41,7 +41,8 @@ function App() {
   const history = useHistory();
 
   const api = new Api({
-    baseUrl: 'https://www.api.alex-around-us.students.nomoreparties.site',
+    // baseUrl: 'https://www.api.alex-around-us.students.nomoreparties.site',
+    baseUrl: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'http://localhost:3000',

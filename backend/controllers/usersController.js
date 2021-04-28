@@ -18,7 +18,6 @@ function getUsersInfo(req, res, next) {
 }
 
 function createUser(req, res, next) {
-  // const { name, about, avatar, email, password } = req.body;
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) =>
@@ -42,8 +41,8 @@ function createUser(req, res, next) {
           });
         })
         .catch((err) => {
-          if (err.status.code === '409') {
-            throw new ConflictError('Please create unique user');
+          if (err.code === '11000') {
+            throw new ConflictError('Please create a unique user');
           }
         }),
     )
@@ -114,38 +113,26 @@ function updateUserAvatar(req, res, next) {
     .catch(next);
 }
 
-function login(req, res) {
+function login(req, res, next) {
   const { email, password } = req.body;
 
-  return User.findUserByCredentials(email, password).then((user) => {
-    if (!user) {
-      throw new UnauthorizedError('User is not authorized');
-    }
-    const token = jwt.sign({ _id: user._id }, 'alex-key', {
-      expiresIn: '7d',
-    });
-    res.send({ token });
-  });
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('User not found');
+      }
+      const token = jwt.sign({ _id: user._id }, 'alex-key', {
+        expiresIn: '7d',
+      });
+      res.send({ token });
+    })
+    .catch(() => {
+      if (res.status(401)) {
+        throw new UnauthorizedError('Incorrect email or password');
+      }
+    })
+    .catch(next);
 }
-
-// authentication error
-// User.findOne({ email })
-//   .then((user) => {
-//     if (!user) {
-//       return Promise.reject(new Error('Incorrect password or email'));
-//     }
-//     return bcrypt.compare(password, user.password);
-//   })
-//   .then((passwordMatched) => {
-//     if (!passwordMatched) {
-//       return Promise.reject(new Error('Incorrect password or email'));
-//     }
-//     res.send({message: 'Everything is ok'})
-//   })
-//   .catch((err) => {
-//     // return an authentication error
-//     res.status(401).send({ message: err.message });
-//   });
 
 module.exports = {
   getUsersInfo,

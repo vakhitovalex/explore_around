@@ -34,7 +34,7 @@ function deleteCard(req, res, next) {
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Card was not found :(');
-      } else if (!card.owner._id === req.user._id) {
+      } else if (!card.owner._id.toString() === req.user._id) {
         throw new ForbiddenError('Forbidden action, this card is not yours');
       }
       return res.status(200).send(card);
