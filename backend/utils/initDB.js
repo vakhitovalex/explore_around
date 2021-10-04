@@ -1,5 +1,6 @@
 const { connect } = require('mongoose');
 const { config } = require('dotenv');
+//
 
 const { NODE_ENV, MONGODB_URI } = process.env;
 
@@ -10,8 +11,8 @@ module.exports = () => {
       ? MONGODB_URI
       : 'mongodb://localhost:27017/aroundb',
     {
-      useNewUrlParser: true,
       useUnifiedTopology: true,
+      useNewUrlParser: true,
       useFindAndModify: false,
       useCreateIndex: true,
     },
