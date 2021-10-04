@@ -41,7 +41,7 @@ function App() {
   const history = useHistory();
 
   const api = new Api({
-    baseUrl: 'https://www.api.alex-around-us.students.nomoreparties.site',
+    baseUrl: 'https://around-alex.herokuapp.com/',
     // baseUrl: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',

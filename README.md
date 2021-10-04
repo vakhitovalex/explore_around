@@ -4,4 +4,4 @@
 
 Front end is [here - https://www.alex-around-us.students.nomoreparties.site/](https://www.alex-around-us.students.nomoreparties.site/ "Using Google Cloud Platform")
 
-Back end is [here - https://www.api.alex-around-us.students.nomoreparties.site/](https://www.api.alex-around-us.students.nomoreparties.site/ "Using Google Cloud Platform")
+Back end is [https://around-alex.herokuapp.com/](https://around-alex.herokuapp.com/ "Thanks God Heroku was created")
