@@ -6,6 +6,8 @@ const BadRequestError = require('../middleware/errors/bad-request-err');
 const UnauthorizedError = require('../middleware/errors/unauthorized-err');
 const ConflictError = require('../middleware/errors/conflict-err');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 function getUsersInfo(req, res, next) {
   return User.find({})
     .then((users) => {
@@ -121,9 +123,13 @@ function login(req, res, next) {
       if (!user) {
         throw new NotFoundError('User not found');
       }
-      const token = jwt.sign({ _id: user._id }, 'alex-key', {
-        expiresIn: '7d',
-      });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'alex-key',
+        {
+          expiresIn: '7d',
+        },
+      );
       res.send({ token });
     })
     .catch(() => {

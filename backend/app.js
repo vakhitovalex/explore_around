@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -8,14 +7,11 @@ const auth = require('./middleware/auth');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const NotFoundError = require('./middleware/errors/not-found-err');
 
+require('./utils/initDB')();
+require('dotenv').config();
+
 const app = express();
 const { PORT = 3001 } = process.env;
-
-mongoose.connect('mongodb://localhost:27017/aroundb', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
 
 const userRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
