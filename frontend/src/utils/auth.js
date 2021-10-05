@@ -1,4 +1,4 @@
-const BASE_URL = 'https://around-alex.herokuapp.com/';
+const BASE_URL = 'https://around-alex.herokuapp.com';
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
