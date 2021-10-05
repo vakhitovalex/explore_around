@@ -75,10 +75,11 @@ function App() {
           throw new Error('User Not Found');
         }
         if (data.token) {
+          localStorage.setItem('token', data.token);
+          setToken(localStorage.getItem('token'));
           setEmail('');
           setPassword('');
           setIsLoggedIn(true);
-          setToken(localStorage.setItem('token', data.token));
         }
       })
       .catch((err) => console.log(err));
@@ -98,14 +99,14 @@ function App() {
         .then((res) => {
           if (res) {
             console.log(res);
+            setCurrentUser(res);
             setIsLoggedIn(true);
             setEmail(res.email);
-            setCurrentUser(res);
           }
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [token]);
 
   function requestUserInfo() {
     api
@@ -121,7 +122,7 @@ function App() {
 
   useEffect(() => {
     requestUserInfo();
-  }, []);
+  }, [token]);
 
   function requestCards() {
     api
