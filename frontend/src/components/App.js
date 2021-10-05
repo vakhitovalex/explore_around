@@ -41,11 +41,11 @@ function App() {
   const history = useHistory();
 
   const api = new Api({
-    baseUrl: 'https://around-alex.herokuapp.com/',
+    baseUrl: 'https://around-alex.herokuapp.com',
     // baseUrl: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:3000',
+      'Access-Control-Allow-Origin': '*',
       authorization: `Bearer ${token}`,
     },
   });
