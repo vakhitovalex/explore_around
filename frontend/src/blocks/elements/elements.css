@@ -1,7 +1,11 @@
 .elements {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; */
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  grid-gap: 8px;
+  grid-template-rows: auto;
 }
 
 @media screen and (max-width: 656px) {

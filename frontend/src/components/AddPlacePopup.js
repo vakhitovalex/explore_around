@@ -3,14 +3,14 @@ import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup(props) {
   const [cardTitle, setCardTitle] = useState('');
-  const [cardImageLink, setCardLink] = useState('');
+  const [cardImageLink, setCardImageLink] = useState('');
 
   function handleCardTitleChange(e) {
     setCardTitle(e.target.value);
   }
 
   function handleCardImageLinkChange(e) {
-    setCardLink(e.target.value);
+    setCardImageLink(e.target.value);
   }
 
   function handleSubmit(e) {
@@ -19,6 +19,8 @@ function AddPlacePopup(props) {
       name: cardTitle,
       link: cardImageLink,
     });
+    setCardTitle('');
+    setCardImageLink('');
   }
 
   return (

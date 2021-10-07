@@ -86,6 +86,14 @@ function App() {
   }
 
   function handleLogout() {
+    setCurrentUser({
+      about: '',
+      avatar: '',
+      email: '',
+      name: '',
+      __v: 0,
+      _id: '',
+    });
     setIsLoggedIn(false);
     localStorage.removeItem('token');
     setEmail('');
@@ -137,7 +145,7 @@ function App() {
 
   useEffect(() => {
     requestCards();
-  }, []);
+  }, [cards]);
 
   function handleCardLike(card) {
     // Check one more time if this card was already liked
@@ -223,7 +231,7 @@ function App() {
         name,
         link,
       })
-      .then((newCard) => setCards([newCard, ...cards]))
+      .then((newCard) => setCards([...cards, newCard]))
       .catch((err) => {
         console.log(err + ' in add card api request');
       })
