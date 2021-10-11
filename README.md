@@ -1,7 +1,8 @@
-![Around the U. S.](./frontend/src/logo.svg)
+## Around the U.S. is a little project on React, with authorization and registration using Node.js. Deployed on Netlify and Heroku.
+## Here you can post and share your picturesque photos.
+<br /><br>
+![Around the U. S.](./Around_US.png)
 
-## Around the U.S. project on React, featuring authorization and registration on Node.js
+Front end is [here](https://alex-around-us.netlify.app/ "Deployed on Netlify").
 
-Front end is [here - https://www.alex-around-us.students.nomoreparties.site/](https://www.alex-around-us.students.nomoreparties.site/ "Using Google Cloud Platform")
-
-Back end is [https://around-alex.herokuapp.com/](https://around-alex.herokuapp.com/ "Thanks God Heroku was created")
+Back end is [here](https://around-alex.herokuapp.com/ "Thanks God Heroku was created").
